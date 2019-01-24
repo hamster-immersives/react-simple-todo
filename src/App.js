@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 
 import TaskView from './components/view/TaskView';
 import Nav from './components/container/Nav';
+import TaskInput from './components/container/TaskInput';
 
 class App extends Component {
 
@@ -13,20 +14,12 @@ class App extends Component {
         completed: false,
         id: uuidv4()
       }
-    ],
-    task: ''
+    ]
   }
 
-  handleInput = (event) => {
-    this.setState({
-      task: event.target.value
-    })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (task) => {
     let newItem = {
-      task: this.state.task,
+      task: task,
       completed: false, 
       id: uuidv4()
     }
@@ -35,23 +28,16 @@ class App extends Component {
 
     this.setState({
       todo: currentItem
-    }, () => {
-      this.formSubmit.reset();
     })
-
   }
 
   render() {
     return (
       <div>
         <Nav />
-        <form onSubmit={this.handleSubmit} ref={ (el) => this.formSubmit = el }>
-          <input 
-            text="task" 
-            onChange={this.handleInput}
-          />
-          <button>Submit</button>
-        </form>
+        <TaskInput 
+          handleSubmit={this.handleSubmit} 
+        />
         {
           this.state.todo.map((element) => {
             return (

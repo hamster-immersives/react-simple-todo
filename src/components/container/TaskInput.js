@@ -13,7 +13,9 @@ export default class TaskInput extends Component {
 
 	handleSubmit = (event) => {
 			event.preventDefault();
+
 			this.props.handleSubmit(this.state.task)
+			
 			this.formSubmit.reset();
 	}
 

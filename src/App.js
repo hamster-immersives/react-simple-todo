@@ -25,12 +25,10 @@ class App extends Component {
     }
     let currentItem = Object.assign([], this.state.todo);
     currentItem.push(newItem);
-
     this.setState({
       todo: currentItem
     })
   }
-
   render() {
     return (
       <div>
@@ -38,6 +36,7 @@ class App extends Component {
         <TaskInput 
           handleSubmit={this.handleSubmit} 
         />
+
         {
           this.state.todo.map((element) => {
             return (
@@ -48,6 +47,7 @@ class App extends Component {
             )
           })
         }
+        
       </div>
     );
   }

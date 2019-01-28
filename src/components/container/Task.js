@@ -12,6 +12,11 @@ export default class Task extends Component {
 		this.props.handleEdit(id, updatedValue)
 	}
 
+  handleChecked = (id) => {
+    this.props.handleChecked(id)
+  }
+
+
   render() {
     
     const tasks = this.props.todo;
@@ -23,7 +28,8 @@ export default class Task extends Component {
 								id={element.id}
                 todo={element}
 								handleDelete={this.handleDelete}
-								handleEdit={this.handleEdit}
+                handleEdit={this.handleEdit}
+                handleChecked={this.handleChecked}
             />
         )
     })

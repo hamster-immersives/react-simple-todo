@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './TaskView.css'
+import { checkboxStyle } from './TaskStyle';
 
 class TaskView extends Component {
 
@@ -31,8 +33,12 @@ class TaskView extends Component {
         })
     }
 
-    render(){
+    handleChecked = (id) => {
+        this.props.handleChecked(id)
+    }
 
+    render(){
+      
         return (
             <li className="list-group-item">
                   { this.state.toggle ? <input 
@@ -57,9 +63,22 @@ class TaskView extends Component {
                     onClick={this.handleEdit.bind(this, this.props.id)}
                     />   
 
+                <input 
+                    type="checkbox"
+                    className="float-right"
+                    style={checkboxStyle}
+                    checked={true}
+                    onChange={this.handleChecked.bind(this, this.props.id)}
+                    />
               
             </li>
         )
+    }
+}
+
+const styles = {
+    checkboxStyle: {
+        margin: '7px 5px'
     }
 }
 

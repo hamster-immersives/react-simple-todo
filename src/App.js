@@ -4,7 +4,6 @@ import uuidv4 from 'uuid/v4';
 import { Nav, Task, TaskInput } from './components/container';
 
 class App extends Component {
-
   state = {
     todo: [
       {
@@ -19,7 +18,6 @@ class App extends Component {
       }
     ]
   }
-
   handleSubmit = (task) => {
     let newItem = {
       task: task,
@@ -35,7 +33,6 @@ class App extends Component {
 
   handleDelete = (id) => {
     let updated = Object.assign([], this.state.todo);
-
     let updatedList = updated.filter((task) => 
       task.id !== id
     );
@@ -43,27 +40,30 @@ class App extends Component {
       todo: updatedList
     })
   }
-
   handleToggle = () => {
     this.setState({
       toggle: !this.state.toggle
     })
   }
-
   handleEdit = (id, updatedValue) => {
-    
     let updated = Object.assign([], this.state.todo);
-
-    /*
-      
-
-    */
-
     updated.map(todo => (todo.id === id ? todo.task = updatedValue : todo))
-
-
     this.setState({
       todo: updated
+    })
+  }
+
+  handleChecked = (id) => {
+    
+    let updatedTasks = this.state.todo.map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo;
+    })
+
+    this.setState({
+      todo: updatedTasks
     })
 
   }
@@ -79,9 +79,8 @@ class App extends Component {
           {...this.state}
           handleDelete={this.handleDelete}
           handleEdit={this.handleEdit}
+          handleChecked={this.handleChecked}
         />
-
-        
       </div>
     );
   }

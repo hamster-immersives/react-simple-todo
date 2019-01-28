@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import uuidv4 from 'uuid/v4';
 
-import TaskView from './components/view/TaskView';
-import Nav from './components/container/Nav';
-import TaskInput from './components/container/TaskInput';
+import { Nav, Task, TaskInput } from './components/container';
 
 class App extends Component {
 
@@ -14,8 +12,7 @@ class App extends Component {
         completed: false,
         id: uuidv4()
       }
-    ],
-    toggle: false
+    ]
   }
 
   handleSubmit = (task) => {
@@ -55,21 +52,10 @@ class App extends Component {
         <TaskInput 
           handleSubmit={this.handleSubmit} 
         />
+        <Task 
+          {...this.state}
+        />
 
-        {
-          this.state.todo.map((element) => {
-            return (
-              <TaskView 
-                key={element.id}
-                task={element.task}
-                id={element.id}
-                handleDelete={this.handleDelete}
-                handleToggle={this.handleToggle}
-                toggle={this.state.toggle}
-                />
-            )
-          })
-        }
         
       </div>
     );

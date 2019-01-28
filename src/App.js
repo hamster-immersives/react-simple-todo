@@ -14,7 +14,8 @@ class App extends Component {
         completed: false,
         id: uuidv4()
       }
-    ]
+    ],
+    toggle: false
   }
 
   handleSubmit = (task) => {
@@ -29,6 +30,24 @@ class App extends Component {
       todo: currentItem
     })
   }
+
+  handleDelete = (id) => {
+    let updated = Object.assign([], this.state.todo);
+
+    let updatedList = updated.filter((task) => 
+      task.id !== id
+    );
+    this.setState({
+      todo: updatedList
+    })
+  }
+
+  handleToggle = () => {
+    this.setState({
+      toggle: !this.state.toggle
+    })
+  }
+
   render() {
     return (
       <div>
@@ -43,6 +62,10 @@ class App extends Component {
               <TaskView 
                 key={element.id}
                 task={element.task}
+                id={element.id}
+                handleDelete={this.handleDelete}
+                handleToggle={this.handleToggle}
+                toggle={this.state.toggle}
                 />
             )
           })

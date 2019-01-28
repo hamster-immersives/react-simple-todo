@@ -2,34 +2,52 @@ import React, { Component } from 'react';
 
 class TaskView extends Component {
 
+    state = {
+        toggle: false,
+        currentState: ''
+    }
+
+    componentDidMount () {
+        this.setState({
+            currentState: this.props.todo.task
+        })
+    }
+
     handleDelete = (id) => {
         this.props.handleDelete(id)
     }
 
     handleEdit = (id) => {
-        
-        this.props.handleToggle(id)
-
+        this.setState(prevState => ({    // prevState?
+            toggle: !prevState.toggle
+        }), () => {
+            this.props.handleEdit(id, this.state.currentState)
+        });
     }
-
+    
+    handleInputChange = () => {
+        this.setState({
+            currentState: this.refs.updatedText.value
+        })
+    }
 
     render(){
 
-    
         return (
             <li className="list-group-item">
-                  { this.props.toggle ? <input 
+                  { this.state.toggle ? <input 
                     type="text" 
-                    value={this.props.task} 
+                    ref="updatedText"
+                    value={this.state.currentState} 
                     style={{textAlign: 'center'}} 
-                    onChange={this.handleEdit.bind(this, this.props.id)}
+                    onChange={this.handleInputChange.bind(this)}
                     />  : `Something I need to do: ${this.props.todo.task}` }
                 <input 
                     type="button" 
                     className="float-right btn btn-danger btn-sm" 
                     value="delete" 
                     style={{textAlign: 'center', marginLeft: 5}} 
-                    onClick={this.handleDelete.bind(this, this.props.id)}
+                    onClick={this.handleDelete.bind(this, this.props.todo.id)}
                     />
                 <input 
                     type="button" 

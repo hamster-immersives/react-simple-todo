@@ -11,6 +11,11 @@ class App extends Component {
         task: "Buy Milk",
         completed: false,
         id: uuidv4()
+      },
+      {
+        task: "Buy Pizza",
+        completed: false,
+        id: uuidv4()
       }
     ]
   }
@@ -45,6 +50,24 @@ class App extends Component {
     })
   }
 
+  handleEdit = (id, updatedValue) => {
+    
+    let updated = Object.assign([], this.state.todo);
+
+    /*
+      
+
+    */
+
+    updated.map(todo => (todo.id === id ? todo.task = updatedValue : todo))
+
+
+    this.setState({
+      todo: updated
+    })
+
+  }
+
   render() {
     return (
       <div>
@@ -54,6 +77,8 @@ class App extends Component {
         />
         <Task 
           {...this.state}
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
         />
 
         
